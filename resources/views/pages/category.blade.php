@@ -6,12 +6,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                    <h2> Blog <small class="hidden-xs-down hidden-sm-down">Nulla felis eros, varius sit amet volutpat non. </small></h2>
+                    @foreach($categories as $cat)
+                        @if($cat->category_id == @$categoryid)
+                            <h2> {{ $cat->category_name }} </h2>
+                        @endif
+                    @endforeach
                 </div><!-- end col -->
                 <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Blog</li>
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
                     </ol>
                 </div><!-- end col -->
             </div><!-- end row -->
@@ -24,6 +27,14 @@
                 <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                     <div class="page-wrapper">
                         <div class="blog-custom-build">
+{{--                            <ol class="breadcrumb hidden-xs-down">--}}
+{{--                                @foreach($categories->take(1) as $cat)--}}
+{{--                                    @if($cat->category_id == $categoryid)--}}
+{{--                                        <li class="breadcrumb-item"><a href="/">Home</a></li>--}}
+{{--                                        <li class="breadcrumb-item">{{ $cat->category_name }}</li>--}}
+{{--                                    @endif--}}
+{{--                                @endforeach--}}
+{{--                            </ol>--}}
                             <div class="blog-box wow fadeIn">
                                 @foreach($data as $key)
                                     @if($key->category == $categoryid)
@@ -49,10 +60,18 @@
                                         </div><!-- end post-sharing -->
                                         <h4><a href="{{ url('page/'.$key->post_id) }}" title="{{ $key->title }}">{{ $key->title }}</a></h4>
                                         <p>{{ $key->description }}</p>
-                                        <small><a href="marketing-category.html" title="">Make Money</a></small>
-                                        <small><a href="marketing-single.html" title="">24 July, 2017</a></small>
-                                        <small><a href="#" title="">by Jack</a></small>
-                                        <small><a href="#" title=""><i class="fa fa-eye"></i> 2291</a></small>
+                                        @foreach($writer as $wri)
+                                            @if($wri->user_id == $key->poster_id)
+                                                @foreach($categories as $cat)
+                                                    @if($cat->category_id == $key->category)
+                                                        <small><a href="{{ url('category/'.$key->category) }}" title="">{{ $cat->category_name }}</a></small>
+                                                        <small><a href="{{ url('page/'.$key->post_id) }}" title="">{{ substr($key->created_at, 0, 10) }}</a></small>
+                                                        <small><a title="">By {{ $wri->name }}</a></small>
+                                                        <small><a href="{{ url('page/'.$key->post_id) }}" title=""><i class="fa fa-eye"></i> {{ $key->clicks }}</a></small>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        @endforeach
                                     </div><!-- end meta -->
                                     @endif
                                 @endforeach

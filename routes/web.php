@@ -25,3 +25,11 @@ Route::get('/Post', [PagesController::class, 'createPost']);
 Route::post('/Post', [PagesController::class, 'storePost']);
 
 Route::get('/Register', [PagesController::class, 'registrationPage']);
+
+Route::post('/Register', [PagesController::class, 'storeUser']);
+
+Route::get('/Login', [PagesController::class, 'loginPage']);
+
+Route::post('/Login', [PagesController::class, 'loginUser']);
+
+Route::get('/logout', [PagesController::class, 'logout']);

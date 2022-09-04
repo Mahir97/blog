@@ -4743,7 +4743,7 @@ tbody.collapse.show {
   display: inline-block;
   padding-right: 0.5rem;
   padding-left: 0.5rem;
-  color: #636c72;
+  color: #000000;
   content: "/";
 }
 
@@ -4756,7 +4756,7 @@ tbody.collapse.show {
 }
 
 .breadcrumb-item.active {
-  color: #636c72;
+  color: #000000;
 }
 
 .pagination {

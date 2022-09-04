@@ -29,8 +29,8 @@
                         </div>
                     </div><!-- end page-wrapper -->
                 </div><!-- end col -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </section>
+{{--            </div><!-- end row -->--}}
+{{--        </div><!-- end container -->--}}
+{{--    </section>--}}
 
 @endsection

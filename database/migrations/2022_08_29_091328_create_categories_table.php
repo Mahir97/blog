@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('category_id');
             $table->string('category_name');
+            $table->integer('cat_clicks');
+            $table->timestamps();
         });
     }
 

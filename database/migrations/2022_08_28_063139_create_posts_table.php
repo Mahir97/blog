@@ -20,7 +20,8 @@ return new class extends Migration
             $table->text('body');
             $table->text('imgpath');
             $table->string('category');
-            $table->integer('post_id');
+            $table->integer('poster_id');
+            $table->integer('clicks');
             $table->timestamps();
         });
     }
