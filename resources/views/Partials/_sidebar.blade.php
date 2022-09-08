@@ -22,7 +22,7 @@
                         <div class="w-100 justify-content-between">
                             <img src="{{asset('page/'.$key->imgpath)}}" width = "90" alt="" class="img-fluid float-left">
                             <h5 class="mb-1">{{$key->title}}</h5>
-                            <small>12 Jan, 2016</small>
+                            <small>{{ substr($key->created_at, 0, 10) }}</small>
                         </div>
                     </a>
                 </div>

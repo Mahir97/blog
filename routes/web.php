@@ -20,16 +20,18 @@ Route::get('/page/{postid}', [PagesController::class, 'getPage']);
 
 Route::get('/category/{categoryid}', [PagesController::class, 'getCategory']);
 
-Route::get('/Post', [PagesController::class, 'createPost']);
+Route::get('/Post', [PagesController::class, 'createPost'])->middleware('isNotLoggedIn');;
 
-Route::post('/Post', [PagesController::class, 'storePost']);
+Route::post('/Post', [PagesController::class, 'storePost'])->name('senddata')->middleware('isNotLoggedIn');;
 
-Route::get('/Register', [PagesController::class, 'registrationPage']);
+Route::get('/Register', [PagesController::class, 'registrationPage'])->middleware('isLoggedIn');
 
-Route::post('/Register', [PagesController::class, 'storeUser']);
+Route::post('/Register', [PagesController::class, 'storeUser'])->middleware('isLoggedIn');
 
-Route::get('/Login', [PagesController::class, 'loginPage']);
+Route::get('/Login', [PagesController::class, 'loginPage'])->middleware('isLoggedIn');
 
-Route::post('/Login', [PagesController::class, 'loginUser']);
+Route::post('/Login', [PagesController::class, 'loginUser'])->middleware('isLoggedIn');
+
+Route::post('/comment', [PagesController::class, 'storeComment']);
 
 Route::get('/logout', [PagesController::class, 'logout']);

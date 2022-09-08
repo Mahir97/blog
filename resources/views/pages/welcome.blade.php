@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                    <h2> Home <small class="hidden-xs-down hidden-sm-down"> Welcome To The Best Blog Ever Friends! </small></h2>
+                    <h2> Blog <small class="hidden-xs-down hidden-sm-down"> Welcome To The Best Blog Ever Friends! </small></h2>
                 </div><!-- end col -->
                 <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
                 </div><!-- end col -->
@@ -25,7 +25,7 @@
 
                                 <div class="post-media">
                                         <a href="{{ url('page/'.$key->post_id) }}" title="{{ $key->title }}">
-                                        <img src="{{ url('page/'.$key->imgpath) }}" alt="" class="img-fluid">
+                                        <img src="{{asset('page/'.$key->imgpath) }}" alt="" class="img-fluid">
                                         <div class="hovereffect">
                                             <span></span>
                                         </div>
@@ -64,16 +64,12 @@
 
                     <hr class="invis">
 
+
                     <div class="row">
                         <div class="col-md-12">
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-center">
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
+                                    {{ $data->links('pagination::bootstrap-4') }}
                                 </ul>
                             </nav>
                         </div><!-- end col -->

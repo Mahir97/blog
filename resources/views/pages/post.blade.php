@@ -15,14 +15,25 @@
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <form class="form-wrapper" action="/Post" method="post">
+                                <form class="form-wrapper" action="{{ route('senddata')  }}" method="post" enctype="multipart/form-data">
                                     @csrf
-                                    <h4>Create a Post</h4>
-                                    <input type="text" class="form-control" placeholder="Category" name="category">
-                                    <input type="text" class="form-control" placeholder="Title" name="title">
-                                    <input type="text" class="form-control" placeholder="Short Description" name="description">
-                                    <input type="text" class="form-control" placeholder="Image Path" name="imgpath">
-                                    <textarea class="form-control" placeholder="Write Your Post" name="body"></textarea>
+                                    <h2>Create a Post</h2>
+                                    <h5>Category</h5>
+                                    <select class="form-control" name="category">
+                                        @foreach($categories as $cat)
+                                            <option value="{{ $cat->category_id }}">{{ $cat->category_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <h5>Title</h5>
+                                    <input type="text" class="form-control" name="title">
+                                    <h5>Short Description</h5>
+                                    <input type="text" class="form-control" name="description">
+{{--                                    <input type="text" class="form-control" placeholder="Image Path" name="imgpath">--}}
+                                    <h5>Image</h5>
+                                    <input id="image" type="file" class="form-control" name="image">
+                                    <h5>Write Your Post</h5>
+                                    <textarea id="myeditorinstance" class="form-control" name="body"></textarea>
+                                    <hr class="invis">
                                     <button type="submit" class="btn btn-primary">Submit <i class="fa fa-envelope-open-o"></i></button>
                                 </form>
                             </div>

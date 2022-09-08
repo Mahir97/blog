@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\blog;
 use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Hash;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,7 @@ class PagesController extends Controller {
     const UPDATED_AT = false;
     public function getWelcome(){
         $datas['writer'] = User::orderBy('user_id')->get();
-        $datas['data'] = blog::orderBy('post_id', 'DESC')->get();
+        $datas['data'] = blog::orderBy('post_id', 'DESC')->paginate(4);
         $datas['dataa'] = blog::orderBy('clicks', 'DESC')->get();
         $datas['categories'] = Category::orderBy('category_id')->get();
         $datas['categoriess'] = Category::orderBy('cat_clicks', 'DESC')->get();
@@ -39,6 +40,7 @@ class PagesController extends Controller {
             $datas['sess'] = array(0);
         }
         $datas['writer'] = User::orderBy('user_id')->get();
+        $datas['comments'] = Comment::orderBy('comment_id', 'DESC')->get();
         $datas['dataa'] = blog::orderBy('clicks', 'DESC')->get();
         $datas['data'] = blog::orderBy('post_id', 'DESC')->get();
         $datas['categories'] = Category::orderBy('category_id')->get();
@@ -59,7 +61,7 @@ class PagesController extends Controller {
         $datas['categories'] = Category::orderBy('category_id')->get();
         $datas['categoriess'] = Category::orderBy('cat_clicks', 'DESC')->get();
         $datas['dataa'] = blog::orderBy('clicks', 'DESC')->get();
-        $datas['data'] = blog::orderBy('post_id', 'DESC')->get();
+        $datas['data'] = blog::where('category', $categoryid)->orderBy('post_id', 'DESC')->paginate(4);
         Category::where('category_id', '=', $categoryid)->increment('cat_clicks');
         return view('pages.category', $datas)->with('categoryid', $categoryid);
     }
@@ -76,15 +78,46 @@ class PagesController extends Controller {
         $datas['categoriess'] = Category::orderBy('cat_clicks', 'DESC')->get();
         return view('pages.post', $datas);
     }
-    public function storePost(){
+    public function storePost(Request $request){
+
         $post = new blog();
+        $post->poster_id = session()->get('logid');
         $post->title = request('title');
         $post->description = request('description');
         $post->body = request('body');
-        $post->imgpath = request('imgpath');
+        if (!$request->hasFile('image')) {
+            return $request;
+        }
+        $file = $request->file('image');
+
+        $extension = $file->getClientOriginalExtension();
+
+        // Note you have a typo in your example, you're using a `,` instead of a `.`
+        $filename = time().'.'.$extension;
+
+        // To store (move) the file to the 'public/image' folder, use this:
+        $file->move(public_path('page/upload/'), $filename);
+        $filename = 'upload/'.$filename;
+        $post->imgpath = $filename;
         $post->category = request('category');
+        $post->comments = 0;
+        $post->clicks = 0;
         $post->save();
         return redirect('/');
+    }
+    public function storeComment(Request $request){
+        if(Session::has('logid')) {
+            $request -> validate([
+                'comment' => 'required',
+            ]);
+            $comment = new Comment();
+            $comment->comment = request('comment');
+            $comment->post_id = request('postid');
+            $comment->commenter_id = session()->get('logid');
+            $comment->save();
+            Post::where('post_id', '=', request('postid'))->increment('comments');
+            return back();
+        }
     }
     public function storeUser(Request $request){
         $request -> validate([

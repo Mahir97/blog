@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('category');
             $table->integer('poster_id');
             $table->integer('clicks');
+            $table->integer('comments');
             $table->timestamps();
         });
     }
