@@ -28,6 +28,10 @@ Route::get('/Register', [PagesController::class, 'registrationPage'])->middlewar
 
 Route::post('/Register', [PagesController::class, 'storeUser'])->middleware('isLoggedIn');
 
+Route::get('/Contact', [PagesController::class, 'contactPage']);
+
+Route::post('/Contact', [PagesController::class, 'storeContact'])->name('cm');
+
 Route::get('/Login', [PagesController::class, 'loginPage'])->middleware('isLoggedIn');
 
 Route::post('/Login', [PagesController::class, 'loginUser'])->middleware('isLoggedIn');

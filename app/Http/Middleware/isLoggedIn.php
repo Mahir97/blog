@@ -18,7 +18,7 @@ class isLoggedIn
     public function handle(Request $request, Closure $next)
     {
         if(Session::has('logid')){
-            return redirect('/');
+            return back();
         }
         return $next($request);
     }

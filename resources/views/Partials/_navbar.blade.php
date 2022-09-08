@@ -16,7 +16,7 @@
                 </li>
             @endforeach
             <li class="nav-item">
-                <a class="nav-link" href="marketing-contact.html">Contact Us</a>
+                <a class="nav-link" href="/Contact">Contact Us</a>
             </li>
             @if(session()->has('logid'))
                 <li class="nav-item">

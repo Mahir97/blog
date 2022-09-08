@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\ContactMessage;
 use App\Models\Post;
 use App\Models\blog;
 use App\Models\User;
@@ -18,7 +19,7 @@ class PagesController extends Controller {
     const UPDATED_AT = false;
     public function getWelcome(){
         $datas['writer'] = User::orderBy('user_id')->get();
-        $datas['data'] = blog::orderBy('post_id', 'DESC')->paginate(4);
+        $datas['data'] = blog::orderBy('post_id', 'DESC')->paginate(3);
         $datas['dataa'] = blog::orderBy('clicks', 'DESC')->get();
         $datas['categories'] = Category::orderBy('category_id')->get();
         $datas['categoriess'] = Category::orderBy('cat_clicks', 'DESC')->get();
@@ -61,7 +62,7 @@ class PagesController extends Controller {
         $datas['categories'] = Category::orderBy('category_id')->get();
         $datas['categoriess'] = Category::orderBy('cat_clicks', 'DESC')->get();
         $datas['dataa'] = blog::orderBy('clicks', 'DESC')->get();
-        $datas['data'] = blog::where('category', $categoryid)->orderBy('post_id', 'DESC')->paginate(4);
+        $datas['data'] = blog::where('category', $categoryid)->orderBy('post_id', 'DESC')->paginate(3);
         Category::where('category_id', '=', $categoryid)->increment('cat_clicks');
         return view('pages.category', $datas)->with('categoryid', $categoryid);
     }
@@ -77,6 +78,19 @@ class PagesController extends Controller {
         $datas['categories'] = Category::orderBy('category_id')->get();
         $datas['categoriess'] = Category::orderBy('cat_clicks', 'DESC')->get();
         return view('pages.post', $datas);
+    }
+    public function contactPage(){
+        if(Session::has('logid')){
+            $datas['sess'] = User::where('user_id', '=', Session::get('logid'))->first()->toarray();
+        }
+        else{
+            $datas['sess'] = array(0);
+        }
+        $datas['dataa'] = blog::orderBy('clicks', 'DESC')->get();
+        $datas['data'] = blog::orderBy('post_id', 'DESC')->get();
+        $datas['categories'] = Category::orderBy('category_id')->get();
+        $datas['categoriess'] = Category::orderBy('cat_clicks', 'DESC')->get();
+        return view('pages.contact', $datas);
     }
     public function storePost(Request $request){
 
@@ -103,6 +117,21 @@ class PagesController extends Controller {
         $post->comments = 0;
         $post->clicks = 0;
         $post->save();
+        return redirect('/');
+    }
+    public function storeContact(Request $request){
+        $request -> validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'subject' => 'required',
+            'message' => 'required',
+        ]);
+        $contact = new ContactMessage();
+        $contact->contact_name = request('name');
+        $contact->contact_email = request('email');
+        $contact->contact_subject = request('subject');
+        $contact->contact_message = request('message');
+        $contact->save();
         return redirect('/');
     }
     public function storeComment(Request $request){
