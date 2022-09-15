@@ -54,14 +54,20 @@
                 </div><!-- end widget -->
             </div><!-- end col -->
         </div><!-- end row -->
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <br>
-                <br>
-                <div class="copyright">&copy; Markedia. Design: <a href="http://html.design">HTML Design</a>.</div>
-            </div>
-        </div>
+        <div>
+
+                    <a style="align-content: center" href="/"><img class="mx-auto d-block" src="{{asset('page/upload/Ex.png')}}" height=200 alt=""></a>
+
+        </div><!-- end col -->
+{{--        <div class="row">--}}
+{{--            <div class="col-md-12 text-center">--}}
+{{--                <br>--}}
+{{--                <br>--}}
+{{--                <div class="copyright">&copy; Markedia. Design: <a href="http://html.design">HTML Design</a>.</div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div><!-- end container -->
+
 </footer><!-- end footer -->
 
 <script src="{{asset('js/tinymce/tinymce.min.js')}}" referrerpolicy="origin"></script>

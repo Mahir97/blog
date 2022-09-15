@@ -2,17 +2,72 @@
 
 @section('content')
 
-    <div class="page-title db">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                    <h2> Blog <small class="hidden-xs-down hidden-sm-down"> Welcome To The Best Blog Ever Friends! </small></h2>
-                </div><!-- end col -->
-                <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
-                </div><!-- end col -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </div><!-- end page-title -->
+{{--    <div class="page-title db">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">--}}
+{{--                    <h2> Blog <small class="hidden-xs-down hidden-sm-down"> Welcome To The Best Blog Ever Friends! </small></h2>--}}
+{{--                </div><!-- end col -->--}}
+{{--                <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">--}}
+{{--                </div><!-- end col -->--}}
+{{--            </div><!-- end row -->--}}
+{{--        </div><!-- end container -->--}}
+{{--    </div><!-- end page-title -->--}}
+{{--<section class="section">--}}
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            @foreach($dataa->take(3) as $val=>$key)
+            <li data-target="#carouselExampleIndicators" data-slide-to="{{$val}}" class="@if($loop->first) active @endif"></li>
+            @endforeach
+        </ol>
+        <div class="carousel-inner">
+            @foreach($dataa->take(3) as $key)
+            <div class="carousel-item @if($loop->first) active @endif" style="height: 500px;">
+{{--                style="height: 400px;"--}}
+                <img class="img-fluid w-100 h-100" src="{{asset('page/'.$key->imgpath) }}" style="object-fit: cover;">
+                <div class="carousel-caption d-none d-md-block" style="backdrop-filter: blur()">
+                    <a href="{{ url('page/'.$key->post_id) }}" title="{{ $key->title }}"><h1 style="color: white;" background: #6c2d2d9e;>{{ $key->title }}</h1></a>
+                    <p style="color: #edebf2">{{ $key->description }}</p>
+                </div>
+            </div>
+
+            @endforeach
+
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+        
+    </div>
+
+{{--</section>--}}
+
+{{--    <section id="cta" class="section">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-lg-8 col-md-12 align-self-center">--}}
+{{--                    <h2>A digital marketing blog</h2>--}}
+{{--                    <p class="lead"> Aenean ut hendrerit nibh. Duis non nibh id tortor consequat cursus at mattis felis. Praesent sed lectus et neque auctor dapibus in non velit. Donec faucibus odio semper risus rhoncus rutrum. Integer et ornare mauris.</p>--}}
+{{--                    <a href="#" class="btn btn-primary">Try for free</a>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4 col-md-12">--}}
+{{--                    <div class="newsletter-widget text-center align-self-center">--}}
+{{--                        <h3>Subscribe Today!</h3>--}}
+{{--                        <p>Subscribe to our weekly Newsletter and receive updates via email.</p>--}}
+{{--                        <form class="form-inline" method="post">--}}
+{{--                            <input type="text" name="email" placeholder="Add your email here.." required class="form-control" />--}}
+{{--                            <input type="submit" value="Subscribe" class="btn btn-default btn-block" />--}}
+{{--                        </form>--}}
+{{--                    </div><!-- end newsletter -->--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
 
     <section class="section lb">
         <div class="container">

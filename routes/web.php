@@ -20,9 +20,9 @@ Route::get('/page/{postid}', [PagesController::class, 'getPage']);
 
 Route::get('/category/{categoryid}', [PagesController::class, 'getCategory']);
 
-Route::get('/Post', [PagesController::class, 'createPost'])->middleware('isNotLoggedIn');;
+Route::get('/Post', [PagesController::class, 'createPost'])->middleware('isNotLoggedIn','isWriter');;
 
-Route::post('/Post', [PagesController::class, 'storePost'])->name('senddata')->middleware('isNotLoggedIn');;
+Route::post('/Post', [PagesController::class, 'storePost'])->name('senddata')->middleware('isNotLoggedIn','isWriter');;
 
 Route::get('/Register', [PagesController::class, 'registrationPage'])->middleware('isLoggedIn');
 

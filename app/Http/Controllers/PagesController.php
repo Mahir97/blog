@@ -73,6 +73,7 @@ class PagesController extends Controller {
         else{
             $datas['sess'] = array(0);
         }
+        $datas['writer'] = User::orderBy('user_id')->get();
         $datas['dataa'] = blog::orderBy('clicks', 'DESC')->get();
         $datas['data'] = blog::orderBy('post_id', 'DESC')->get();
         $datas['categories'] = Category::orderBy('category_id')->get();
@@ -86,6 +87,7 @@ class PagesController extends Controller {
         else{
             $datas['sess'] = array(0);
         }
+        $datas['writer'] = User::orderBy('user_id')->get();
         $datas['dataa'] = blog::orderBy('clicks', 'DESC')->get();
         $datas['data'] = blog::orderBy('post_id', 'DESC')->get();
         $datas['categories'] = Category::orderBy('category_id')->get();
@@ -159,6 +161,7 @@ class PagesController extends Controller {
         $user->email = request('email');
         $user->password = Hash::make(request('password'));
         $user->bio = request('bio');
+        $user->role = "viewer";
         $user->save();
         if($user){
             return back()->with('success', 'Registration Successful!!!');
@@ -174,6 +177,7 @@ class PagesController extends Controller {
         else{
             $datas['sess'] = array(0);
         }
+        $datas['writer'] = User::orderBy('user_id')->get();
         $datas['dataa'] = blog::orderBy('clicks', 'DESC')->get();
         $datas['data'] = blog::orderBy('post_id', 'DESC')->get();
         $datas['categories'] = Category::orderBy('category_id')->get();
@@ -208,6 +212,7 @@ class PagesController extends Controller {
         else{
             $datas['sess'] = array(0);
         }
+        $datas['writer'] = User::orderBy('user_id')->get();
         $datas['dataa'] = blog::orderBy('clicks', 'DESC')->get();
         $datas['data'] = blog::orderBy('post_id', 'DESC')->get();
         $datas['categories'] = Category::orderBy('category_id')->get();
